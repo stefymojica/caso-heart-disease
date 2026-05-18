@@ -29,8 +29,9 @@ URL = "http://archive.ics.uci.edu/ml/machine-learning-databases/heart-disease/pr
 # ─────────────────────────────────────────────
 # 1. CARGA E IMPUTACIÓN
 # ─────────────────────────────────────────────
-
+print("-"*50)
 print("PASO 1: Carga e imputación de datos")
+print("-"*50)
 
 df = pd.read_csv(URL, header=None, names=COLUMNS, na_values="?")
 
@@ -41,10 +42,12 @@ print(f"\nValores faltantes por variable:\n{df.isnull().sum()[df.isnull().sum() 
 for col in df.columns:
     if df[col].isnull().any():
         median_val = df[col].median()
-        df[col].fillna(median_val, inplace=True)
+        df[col] = df[col].fillna(median_val)
         print(f"  '{col}' imputada con mediana = {median_val}")
 
 df["heart_disease"] = (df["num"] > 0).astype(int)
+
+print(f"Valores faltantes luego de imputar = {df.isnull().sum().sum()}")
 
 print(f"\nDistribución de la variable respuesta:")
 print(df["heart_disease"].value_counts().rename({0: "Sin enfermedad", 1: "Con enfermedad"}))
@@ -52,8 +55,9 @@ print(df["heart_disease"].value_counts().rename({0: "Sin enfermedad", 1: "Con en
 # ─────────────────────────────────────────────
 # 2. DISTRIBUCIONES BIVARIADAS
 # ─────────────────────────────────────────────
-
+print("\n"+("-"*50))
 print("PASO 2: Distribuciones bivariadas (categóricas vs respuesta)")
+print("-"*50)
 
 fig, axes = plt.subplots(2, 4, figsize=(16, 8))
 axes = axes.flatten()
@@ -77,13 +81,14 @@ plt.suptitle("Proporción de enfermedad cardiaca por covariable categórica", fo
 plt.tight_layout()
 plt.savefig("bivariadas_categoricas.png", dpi=150)
 plt.show()
-print("Gráfico guardado: bivariadas_categoricas.png")
+print("Gráfico guardado: bivariadas_categoricas.png \n")
 
 # ─────────────────────────────────────────────
 # 3. MODELO BIVARIADO CON fbs
 # ─────────────────────────────────────────────
-
+print("-"*50)
 print("PASO 3: Modelo bivariado con 'fbs' — estimación manual y GLM")
+print("-"*50)
 
 # --- Tabla de contingencia ---
 ct_fbs = pd.crosstab(df["fbs"], df["heart_disease"])
@@ -125,13 +130,14 @@ print(f"  β0 = {glm_fbs.params['const']:.4f}")
 print(f"  β1 = {glm_fbs.params['fbs']:.4f}")
 coinciden = np.allclose([beta0_manual, beta1_manual],
                         [glm_fbs.params['const'], glm_fbs.params['fbs']], atol=1e-3)
-print(f"\n  Los resultados manuales y GLM coinciden: {coinciden}")
+print(f"\n  Los resultados manuales y GLM coinciden: {coinciden}\n")
 
 # ─────────────────────────────────────────────
 # 4. MODELO MULTIVARIADO
 # ─────────────────────────────────────────────
-
+print("-"*50)
 print("PASO 4: Modelo multivariado — todas las variables")
+print("-"*50)
 
 features = [c for c in COLUMNS if c != "num"]
 X = sm.add_constant(df[features])
@@ -164,8 +170,9 @@ print("  " + ", ".join(no_sig))
 # ─────────────────────────────────────────────
 # 5. PROBABILIDADES PREDICHAS
 # ─────────────────────────────────────────────
-
+print("\n"+("-"*50))
 print("PASO 5: Visualización de probabilidades predichas")
+print("-"*50)
 
 df["prob_predicha"] = glm_full.predict(X)
 
