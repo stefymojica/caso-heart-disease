@@ -2,16 +2,6 @@
 
 En este proyecto resolvemos los 4 problemas del taller #3. El primero es teórico y los siguientes son prácticos. Cada uno de los puntos prácticos tiene un archivo `.py` con su código implementado. A continuación, los pasos para la ejecución del código y el análisis y las respuestas de cada punto.
 
-## Autores
-
-| Nombre | GitHub |
-|---|---|
-| Stefany Mojica | [@stefymojica](https://github.com/stefymojica) |
-| Juan Rodríguez | [@JuanSebastianrs](https://github.com/JuanSebastianrs) |
-| Sara Castillejo Ditta | [@scastillejoditta](https://github.com/scastillejoditta) |
-
----
-
 ## Pasos para la ejecución
 
 **Prerequisitos:**
@@ -158,8 +148,10 @@ Dado que el parámetro natural es $\eta = \log\lambda$, se tiene que $\lambda = 
 
 Las tres distribuciones admiten la forma canónica $h(x)\exp(\eta(\theta)t(x) - a(\theta))$, por lo tanto **pertenecen a la familia exponencial de distribuciones**, que es el fundamento de los Modelos Lineales Generalizados (GLM):
 
+```
 GLM = familia exponencial + función de enlace + predictor lineal
-         (distribución)      (conecta E[y] con Xβ)    (Xβ)
+      |   (distribución)       (conecta E[y] con Xβ)      (Xβ)
+```
 
 En los tres casos analizados, $t(x) = x$ (el dato mismo es el estadístico suficiente). Además, el parámetro natural $\eta$ de cada distribución corresponde exactamente a la función de enlace canónica que se usa en su GLM respectivo: logit para la Bernoulli, identidad para la Normal y log para la Poisson.
 
@@ -305,3 +297,13 @@ Se replicó el flujo del Problema 2 reemplazando únicamente la estrategia de im
 ![Gráficos de probabilidades predichas con IterativeImputer](p4_probabilidades_predichas_em.png)
 
 **Métricas predictivas.** El modelo con imputación EM alcanza un AUC-ROC de 0.9245 y una accuracy de 0.8416 (umbral 0.5), prácticamente idénticos a los del Problema 2 (AUC = 0.9240, accuracy = 84.2%). Esto confirma que el modelo logístico multivariado tiene un poder predictivo sólido independientemente del método de imputación empleado.
+
+## Autores T3-GR1
+
+| Nombre | GitHub |
+|---|---|
+| Stefany Mojica | [@stefymojica](https://github.com/stefymojica) |
+| Juan Rodríguez | [@JuanSebastianrs](https://github.com/JuanSebastianrs) |
+| Sara Castillejo Ditta | [@scastillejoditta](https://github.com/scastillejoditta) |
+
+---
